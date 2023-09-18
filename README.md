@@ -1,6 +1,6 @@
 # assignment-yunhyerim
 
-📝Rule
+## 📝Rule
 
 ### 과제 레포지토리 예시
 
