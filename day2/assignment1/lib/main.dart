@@ -110,31 +110,6 @@ class MyApp extends StatelessWidget {
                   width: double.infinity,
                   height: 100,
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-
-                  // child: ListTile(
-                  //   title: Text(
-                  //     '라이언',
-                  //     style: TextStyle(
-                  //       fontSize: 23,
-                  //       fontWeight: FontWeight.w300,
-                  //       color: Colors.white,
-                  //     ),
-                  //   ),
-                  //   subtitle: Text(
-                  //     '게임개발\nC#, Unity',
-                  //     style: TextStyle(
-                  //       fontSize: 17,
-                  //       color: Colors.white,
-                  //     ),
-                  //   ),
-                  //   leading: CircleAvatar(
-                  //     backgroundImage:
-                  //         NetworkImage('https://picsum.photos/100/100'),
-                  //   ),
-                  //   trailing: Icon(
-                  //     Icons.add,
-                  //   ),
-                  // ),
                   child: Row(
                     children: [
                       //프로필 사진
@@ -199,7 +174,6 @@ class MyApp extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   decoration: BoxDecoration(
                     color: Colors.blue,
                   ),
