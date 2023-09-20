@@ -32,7 +32,7 @@ class MusicTile extends StatelessWidget {
           ),
         ),
         SizedBox(
-          width: 10,
+          width: 8,
         ),
         //설명
         Column(
@@ -52,36 +52,40 @@ class MusicTile extends StatelessWidget {
               ),
             ),
             //가수 and playtime
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.check_circle,
-                  size: 15,
-                ),
-                SizedBox(width: 3),
-                Text(
-                  artist,
-                  style: TextStyle(fontSize: 15),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Text(
-                  ' · ',
-                  style: TextStyle(
+            SizedBox(
+              width: 220,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.check_circle,
+                    size: 15,
+                  ),
+                  SizedBox(width: 3),
+                  //가수
+                  Flexible(
+                    child: Text(
+                      artist,
+                      style: TextStyle(fontSize: 15),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Text(
+                    ' · ',
+                    style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w900,
-                      overflow: TextOverflow.visible),
-                ),
-                SizedBox(
-                  width: 40,
-                  child: Text(
+                      // overflow: TextOverflow.visible,
+                    ),
+                  ),
+                  Text(
                     playtime,
                     style: TextStyle(fontSize: 15),
                     maxLines: 1,
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ],
         ),
