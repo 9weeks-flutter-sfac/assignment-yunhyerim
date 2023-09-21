@@ -84,14 +84,28 @@ class MyApp extends StatelessWidget {
                       print('x는 $x');
                       print('y는 $y');
 
-                      int result = stringToInt();
-
+                      int result = plusInt(x, y);
                       showResultDialog(context, result);
                     },
                     child: Text('더하기의 결과값은?!')),
-                ElevatedButton(onPressed: () {}, child: Text('곱하기의 결과값은?!')),
-                ElevatedButton(onPressed: () {}, child: Text('빼기의 결과값은?!')),
-                ElevatedButton(onPressed: () {}, child: Text('나누기의 결과값은?!')),
+                ElevatedButton(
+                    onPressed: () {
+                      int result = multiplyInt(x, y);
+                      showResultDialog(context, result);
+                    },
+                    child: Text('곱하기의 결과값은?!')),
+                ElevatedButton(
+                    onPressed: () {
+                      int result = minusInt(x, y);
+                      showResultDialog(context, result);
+                    },
+                    child: Text('빼기의 결과값은?!')),
+                ElevatedButton(
+                    onPressed: () {
+                      double result = divideDouble(x, y);
+                      showResultDialog(context, result);
+                    },
+                    child: Text('나누기의 결과값은?!')),
               ],
             ),
           ),
@@ -102,11 +116,38 @@ class MyApp extends StatelessWidget {
     return simpleCalculator;
   }
 
-  int stringToInt() {
-    var intX = int.parse(x);
-    var intY = int.parse(y);
+  int plusInt(x, y) {
+    int intX = stringToInt(x);
+    int intY = stringToInt(y);
 
     return intX + intY;
+  }
+
+  int multiplyInt(x, y) {
+    int intX = stringToInt(x);
+    int intY = stringToInt(y);
+
+    int result = intX * intY;
+
+    return result;
+  }
+
+  int minusInt(x, y) {
+    int intX = stringToInt(x);
+    int intY = stringToInt(y);
+
+    return intX - intY;
+  }
+
+  double divideDouble(x, y) {
+    int intX = stringToInt(x);
+    int intY = stringToInt(y);
+
+    return intX / intY;
+  }
+
+  int stringToInt(val) {
+    return int.parse(val);
   }
 
   void showResultDialog(BuildContext context, result) {
