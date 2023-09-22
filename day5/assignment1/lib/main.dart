@@ -133,9 +133,11 @@ class ThirdPage extends StatefulWidget {
 }
 
 class _ThirdPageState extends State<ThirdPage> {
+  var textEditingController = TextEditingController();
+  var text = '';
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         // automaticallyImplyLeading: false, //기본적으로 true라 따로 만들어주지않아도 뒤로가기 가능
@@ -144,7 +146,19 @@ class _ThirdPageState extends State<ThirdPage> {
       ),
       body: SafeArea(
         child: Center(
-          child: Text('3rd Page'),
+          child: Column(
+            children: [
+              TextField(
+                controller: textEditingController,
+                decoration: InputDecoration(label: Text('입력')),
+                onChanged: (value) {
+                  text = value;
+                  setState(() {});
+                },
+              ),
+              Text('$text'),
+            ],
+          ),
         ),
       ),
     );
