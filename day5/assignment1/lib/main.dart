@@ -27,7 +27,6 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // foregroundColor: Colors.black,
         automaticallyImplyLeading: false, //기본적으로 true라 따로 만들어주지않아도 뒤로가기 가능
         title: Text('5일차 과제'),
         centerTitle: true,
@@ -84,15 +83,12 @@ class MainPage extends StatelessWidget {
   }
 }
 
-class SecondPage extends StatefulWidget {
-  @override
-  State<SecondPage> createState() => _SecondPageState();
-}
-
-class _SecondPageState extends State<SecondPage> {
+class SecondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    var _scrollController = ScrollController();
+    List<String> animalList = ['강아지', '고양이', '앵무새', '토끼', '오리', '거위', '원숭이'];
+
     return Scaffold(
       appBar: AppBar(
         // automaticallyImplyLeading: false, //기본적으로 true라 따로 만들어주지않아도 뒤로가기 가능
@@ -101,8 +97,31 @@ class _SecondPageState extends State<SecondPage> {
       ),
       body: SafeArea(
         child: Center(
-          child: Text('2nd Page'),
+          child: ListView.builder(
+            controller: _scrollController,
+            itemCount: animalList.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                height: 300,
+                alignment: Alignment.center,
+                child: Text(
+                  animalList[index],
+                  style: TextStyle(color: Colors.black),
+                ),
+              );
+            },
+          ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (_scrollController.hasClients) {
+            final position = _scrollController.position.minScrollExtent;
+            _scrollController.animateTo(position,
+                duration: Duration(seconds: 1), curve: Curves.easeOut);
+          }
+        },
+        child: Icon(Icons.vertical_align_top),
       ),
     );
   }
