@@ -139,11 +139,11 @@ class _ThirdPageState extends State<ThirdPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // automaticallyImplyLeading: false, //기본적으로 true라 따로 만들어주지않아도 뒤로가기 가능
-        title: Text('5일차 과제'),
-        centerTitle: true,
-      ),
+      // appBar: AppBar(
+      //   // automaticallyImplyLeading: false, //기본적으로 true라 따로 만들어주지않아도 뒤로가기 가능
+      //   title: Text('5일차 과제'),
+      //   centerTitle: true,
+      // ),
       body: SafeArea(
         child: Center(
           child: Column(
@@ -161,6 +161,14 @@ class _ThirdPageState extends State<ThirdPage> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          textEditingController.clear();
+          text = '';
+          setState(() {});
+        },
+        child: Icon(Icons.close),
+      ),
     );
   }
 }
@@ -171,6 +179,13 @@ class FourthPage extends StatefulWidget {
 }
 
 class _FourthPageState extends State<FourthPage> {
+  var isColoredSun = true;
+  var isColoredMoon = true;
+  var isColoredStar = true;
+
+  var textInputController = TextEditingController();
+  var seletedIcon = '';
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -181,9 +196,73 @@ class _FourthPageState extends State<FourthPage> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Center(
-          child: Text('4th Page'),
+        child: ListView(
+          children: [
+            ListTile(
+              leading: Icon(Icons.sunny,
+                  color: isColoredSun ? Colors.grey : Colors.red),
+              title: Text('Sun'),
+              trailing: IconButton(
+                icon: Icon(Icons.arrow_right),
+                onPressed: () {
+                  isColoredSun = !isColoredSun;
+                  setState(() {});
+                },
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.nightlight,
+                  color: isColoredMoon ? Colors.grey : Colors.yellow),
+              title: Text('Moon'),
+              trailing: IconButton(
+                icon: Icon(Icons.arrow_right),
+                onPressed: () {
+                  isColoredMoon = !isColoredMoon;
+                  setState(() {});
+                },
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.star,
+                  color: isColoredStar ? Colors.grey : Colors.yellow),
+              title: Text('Star'),
+              trailing: IconButton(
+                icon: Icon(Icons.arrow_right),
+                onPressed: () {
+                  isColoredStar = !isColoredStar;
+                  setState(() {});
+                },
+              ),
+            ),
+            TextField(
+              controller: textInputController,
+              onSubmitted: (value) {
+                seletedIcon = value;
+                setState(() {});
+
+                if (seletedIcon == '태양') {
+                  isColoredSun = !isColoredSun;
+                }
+                if (seletedIcon == '달') {
+                  isColoredMoon = !isColoredMoon;
+                }
+                if (seletedIcon == '별') {
+                  isColoredMoon = !isColoredMoon;
+                }
+              },
+              decoration: InputDecoration(label: Text('켜고 끄고 싶은 아이콘을 선택하세요')),
+            )
+          ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          isColoredSun = true;
+          isColoredMoon = true;
+          isColoredStar = true;
+          setState(() {});
+        },
+        child: Icon(Icons.refresh),
       ),
     );
   }
