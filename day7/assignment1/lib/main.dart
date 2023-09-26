@@ -7,11 +7,14 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     List<Map<String, String>> words = [
-      {"word": "apple", "meaning": "사과", "example": "I want to eat an apple"},
+      {
+        "word": "apple",
+        "meaning": "사과",
+        "example": "I want to eat an apple",
+      },
       {
         "word": "paper",
         "meaning": "종이",
@@ -43,6 +46,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: SafeArea(
           child: PageView.builder(
+            //pageview builder로 페이지마다 index데이터 넣어줌
             controller: pageController,
             itemCount: words.length,
             itemBuilder: (context, index) => Column(
@@ -78,7 +82,7 @@ class MyApp extends StatelessWidget {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 20), // 양쪽 가장자리 간격 띄우기
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
