@@ -1,10 +1,10 @@
-import 'dart:math';
-
+import 'package:assignment2/CardContainer.dart';
+import 'package:assignment2/NetworkCheckingScreen.dart';
+import 'package:assignment2/ShimmerCard.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:shimmer/shimmer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,24 +34,67 @@ class _MyAppState extends State<MyApp> {
   bool connectionStatus = false;
 
   void getData() async {
+    setState(() {
+      isLoading = true;
+    });
+    await Future.delayed(Duration(milliseconds: 1500));
     Response res = await dio.get(url);
-
     data = res.data;
-
     // print(data["body"]);
 
     if (msgList.isEmpty && urlList.isEmpty) {
       for (var i = 0; i < data["body"].length; i++) {
-        print("====== i는 $i");
-
         msgList.add(data["body"][i]["msg"]);
         urlList.add(data["body"][i]["url"]);
       }
-
       // print("============== MSGLIST = $msgList");
       // print("=============== URLLIST = $urlList");
       // print("============msglist.length = ${msgList.length}");
     }
+    setState(() {
+      isLoading = false;
+    });
+
+    print("============== IS LOADING = $isLoading");
+  }
+
+  // 새로고침
+  void onRefresh() {
+    print("새로고침 중...");
+    getData();
+
+    setState(() {
+      refreshController.refreshCompleted();
+    });
+  }
+
+  // 인터넷 연결 확인
+  void checkNetwork() async {
+    setState(() {
+      isCheckingNetwork = true;
+    });
+
+    var connectivityResult = await Connectivity().checkConnectivity();
+    await Future.delayed(Duration(milliseconds: 1500));
+
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.ethernet) {
+      isConnectedNetwork = true;
+    } else {
+      isConnectedNetwork = false;
+    }
+
+    isCheckingNetwork = false;
+
+    // 연결이 확인되면 화면 로딩 시작
+    isLoading = true;
+    setState(() {});
+
+    await Future.delayed(Duration(milliseconds: 1500));
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -59,9 +102,6 @@ class _MyAppState extends State<MyApp> {
     super.initState();
 
     getData();
-    setState(() {
-      isLoading = false;
-    });
   }
 
   @override
@@ -73,152 +113,41 @@ class _MyAppState extends State<MyApp> {
           centerTitle: true,
         ),
         body: SafeArea(
-          child: !isCheckingNetwork && isConnectedNetwork
-              ? FutureBuilder(
-                  future: Future.delayed(Duration(seconds: 2)),
-                  builder: (context, snapshot) {
-                    return SmartRefresher(
-                      controller: refreshController,
-                      onRefresh: () async {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        getData();
-                        await Future.delayed(Duration(seconds: 1));
+            child: !isCheckingNetwork && isConnectedNetwork
+                ? FutureBuilder(
+                    future: Future.delayed(Duration(seconds: 2)),
+                    builder: (context, snapshot) {
+                      return SmartRefresher(
+                        controller: refreshController,
+                        onRefresh: onRefresh,
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          itemCount: msgList.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.78,
+                            mainAxisSpacing: 7,
+                            crossAxisSpacing: 7,
+                          ),
+                          itemBuilder: (context, index) {
+                            String msg = msgList[index];
+                            String imgUrl = urlList[index];
 
-                        print("새로고침 중...");
-                        setState(() {
-                          isLoading = false;
-                          print("====== $isLoading");
-                          refreshController.refreshCompleted();
-                        });
-                      },
-                      child: GridView.builder(
-                        shrinkWrap: true,
-                        itemCount: msgList.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.78,
-                          mainAxisSpacing: 7,
-                          crossAxisSpacing: 7,
+                            return !isLoading
+                                ? CardContainer(imgUrl: imgUrl, msg: msg)
+                                : ShimmerCard();
+                          },
                         ),
-                        itemBuilder: (context, index) {
-                          String msg = msgList[index];
-                          String imgUrl = urlList[index];
-
-                          return !isLoading
-                              ? Container(
-                                  width: 100,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      SizedBox(
-                                        height: 7,
-                                      ),
-                                      Container(
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                          child: SizedBox(
-                                            width: 173,
-                                            height: 173,
-                                            child: Image.network(
-                                              imgUrl,
-                                              fit: BoxFit.fitWidth,
-                                            ),
-                                          ),
-                                        ),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                width: 0.7, color: Colors.grey),
-                                            borderRadius:
-                                                BorderRadius.circular(16)),
-                                      ),
-                                      SizedBox(height: 6),
-                                      Text(msg),
-                                      SizedBox(
-                                        height: 7,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8),
-                                            child: Icon(Icons.comment),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.grey,
-                                          blurRadius: 3,
-                                          blurStyle: BlurStyle.outer),
-                                    ],
-                                  ),
-                                )
-                              : Shimmer.fromColors(
-                                  baseColor: Colors.grey[300]!,
-                                  highlightColor: Colors.grey[100]!,
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(16)),
-                                  ),
-                                );
-                        },
-                      ),
-                    );
-                  },
-                )
-              : Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (isCheckingNetwork) Text('인터넷 연결 확인 중 입니다.'),
-                      if (!isConnectedNetwork) Text('NO INTERNET'),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      if (isCheckingNetwork) CircularProgressIndicator(),
-                    ],
-                  ),
-                ),
-        ),
+                      );
+                    },
+                  )
+                : NetworkCheckingScreen(
+                    isCheckingNetwork: isCheckingNetwork,
+                    isConnectedNetwork: isConnectedNetwork)),
         floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            setState(() {
-              isCheckingNetwork = true;
-            });
-            print("======= $isCheckingNetwork");
-            await Connectivity().checkConnectivity();
-            await Future.delayed(Duration(seconds: 1));
-
-            print("===== CHECKING NETWORK");
-
-            if (ConnectivityResult == ConnectivityResult.none) {
-              setState(() {
-                isConnectedNetwork = false;
-              });
-            } else {
-              print("======= $isConnectedNetwork");
-              setState(() {
-                isConnectedNetwork = true;
-              });
-            }
-            setState(() {
-              isCheckingNetwork = false;
-              isLoading = true;
-            });
-            await Future.delayed(Duration(milliseconds: 1500));
-            setState(() {
-              isLoading = false;
-            });
+          onPressed: () {
+            checkNetwork();
           },
           child: Icon(Icons.wifi_find_rounded),
         ),
