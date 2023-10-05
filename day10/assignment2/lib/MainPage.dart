@@ -34,32 +34,9 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.white70,
       ),
-      body: SafeArea(child: pageList[currentPageIdx]),
-      // SafeArea(
-      // child:
-      // Center(
-      //   child: Column(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     crossAxisAlignment: CrossAxisAlignment.center,
-      //     mainAxisSize: MainAxisSize.min,
-      //     children: [
-      //       Text(
-      //         "내용",
-      //         style: TextStyle(fontFamily: 'Neo'),
-      //       ),
-      //       PageView(
-      //         controller: pageController,
-      //         physics: NeverScrollableScrollPhysics(),
-      //         children: [
-      //           SecretPage(),
-      //           UploadPage(),
-      //           AuthorPage(),
-      //         ],
-      //       )
-      //     ],
-      //   ),
-      // ),
-      // ),
+      body: SafeArea(
+        child: pageList[currentPageIdx],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.grey.withOpacity(0.3),
         selectedItemColor: Colors.white,
