@@ -1,6 +1,7 @@
 import 'package:assignment2/SecretContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:secret_cat_sdk/api/api.dart';
+import 'package:secret_cat_sdk/model/author.dart';
 
 class SecretPage extends StatefulWidget {
   const SecretPage({super.key});
@@ -10,45 +11,71 @@ class SecretPage extends StatefulWidget {
 }
 
 class _SecretPageState extends State<SecretPage> {
-  var pageController = PageController();
+  List<Map<String, dynamic>> secretList = [];
+
+  void getSecret() async {
+    var secrets = await SecretCatApi.fetchSecrets();
+
+    // print("========= SECRETLIST = ${secrets.toString()}");
+
+    for (var secret in secrets) {
+      var secretData = secret.secret;
+      Author? author = secret.author;
+
+      if (author == null) {
+        secretList.add({"secret": secretData, "author": "익명"});
+      } else {
+        secretList.add({
+          "secret": secretData,
+          "author": {
+            "name": author.name,
+            "username": author.username,
+            "avatar": author.avatar
+          }
+        });
+      }
+    }
+    print("=========== SECRETLIST === $secretList");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: FutureBuilder(
-        future: SecretCatApi.fetchAuthors(),
+        future: SecretCatApi.fetchSecrets(),
         builder: (context, snapshot) {
-          List<Map<String, dynamic>> authors = [];
-
           if (snapshot.connectionState == ConnectionState.done) {
-            var dataList = snapshot.data!.toList();
-            // print(dataList);
+            // getSecret();
+            for (var secret in snapshot.data!) {
+              var secretData = secret.secret;
+              Author? author = secret.author;
 
-            authors.clear();
-
-            if (authors.isEmpty) {
-              for (var author in dataList) {
-                String name = author.name;
-                String username = author.username;
-                String? avatar = author.avatar;
-
-                authors.add(
-                  {"name": name, "username": username, "avatar": avatar},
+              if (author == null) {
+                secretList.add({"secret": secretData, "author": "익명"});
+              } else {
+                secretList.add(
+                  {
+                    "secret": secretData,
+                    "author": {
+                      "name": author.name,
+                      "username": author.username,
+                      "avatar": author.avatar
+                    }
+                  },
                 );
               }
             }
-
-            print("================== AUTHORS : $authors");
           }
+
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Expanded(
               child: PageView.builder(
-                itemCount: authors.length,
-                controller: pageController,
+                itemCount: secretList.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return SecretContainer(
-                    authors: authors[index],
+                    secretInfo: secretList[index],
                   );
                 },
               ),

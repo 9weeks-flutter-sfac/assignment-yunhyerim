@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SecretContainer extends StatelessWidget {
-  const SecretContainer({super.key, required this.authors});
+  const SecretContainer({super.key, required this.secretInfo});
 
-  final Map<String, dynamic> authors;
+  final Map<String, dynamic> secretInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -15,18 +15,40 @@ class SecretContainer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              authors["username"],
-              style: TextStyle(color: Colors.white),
+            if (secretInfo["author"] == "익명")
+              CircleAvatar(
+                backgroundImage: AssetImage(
+                  "assets/karaoke.png",
+                ),
+                backgroundColor: Colors.grey.withOpacity(0.3),
+                radius: 50,
+              )
+            else
+              CircleAvatar(
+                backgroundImage: NetworkImage(secretInfo["author"]["avatar"]),
+                backgroundColor: Colors.grey.withOpacity(0.3),
+                radius: 50,
+              ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                secretInfo["secret"],
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
             ),
-            Text(
-              authors["name"],
-              style: TextStyle(color: Colors.white),
-            ),
-            Text(
-              authors["avatar"],
-              style: TextStyle(color: Colors.white),
-            ),
+            if (secretInfo["author"] == "익명")
+              Text(
+                secretInfo["author"],
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              )
+            else
+              Text(
+                secretInfo["author"]["name"],
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
           ],
         ),
       ),

@@ -2,7 +2,7 @@ import 'package:assignment2/AuthorPage.dart';
 import 'package:assignment2/SecretPage.dart';
 import 'package:assignment2/UploadPage.dart';
 import 'package:flutter/material.dart';
-import 'package:secret_cat_sdk/api/api.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -12,7 +12,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  var pageController = PageController();
   int currentPageIdx = 0;
   var pageList = [SecretPage(), UploadPage(), AuthorPage()];
 
@@ -21,11 +20,15 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
-        title: Text(
-          "Open Secret",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+        title: Row(
+          children: [
+            Text(
+              "Open Secret",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -61,11 +64,13 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: Colors.grey.withOpacity(0.3),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white24,
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
         currentIndex: currentPageIdx,
         onTap: (index) {
           setState(() {
             currentPageIdx = index;
           });
+          print("현재 페이지는 $currentPageIdx");
         },
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "비밀 보기"),

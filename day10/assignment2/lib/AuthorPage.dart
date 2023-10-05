@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:secret_cat_sdk/api/api.dart';
 
 class AuthorPage extends StatefulWidget {
   const AuthorPage({super.key});
@@ -10,10 +11,58 @@ class AuthorPage extends StatefulWidget {
 class _AuthorPageState extends State<AuthorPage> {
   @override
   Widget build(BuildContext context) {
+    List<Map<String, String>> authors = [];
+
     return Center(
-      child: Text(
-        "회원보기 페이지입니다.",
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      child: FutureBuilder(
+        future: SecretCatApi.fetchAuthors(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            print("${snapshot.data}");
+            for (var author in snapshot.data) {
+              String name = author.name;
+              String username = author.username;
+              String avatar = author.avatar;
+
+              authors.add(
+                {"name": name, "username": username, "avatar": avatar},
+              );
+
+              print("=============== AUTHORS : $authors");
+            }
+          }
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              GridView.builder(
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3, mainAxisSpacing: 14),
+                itemCount: authors.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.network(
+                        authors[index]["avatar"]!,
+                        height: 100,
+                        width: 100,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        authors[index]["name"]!,
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ],
+          );
+        },
       ),
     );
   }

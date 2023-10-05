@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:secret_cat_sdk/api/api.dart';
 
 class UploadPage extends StatefulWidget {
   const UploadPage({super.key});
@@ -8,12 +11,54 @@ class UploadPage extends StatefulWidget {
 }
 
 class _UploadPageState extends State<UploadPage> {
+  var textEditingController = TextEditingController(text: "비밀을 입력하세요");
+
+  void inputSecret(String value) async {
+    await SecretCatApi.addSecret(value);
+
+    var secrets = await SecretCatApi.fetchSecrets();
+
+    print(secrets);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(
-        "비밀 공유하기 페이지입니다.",
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              selectionHeightStyle: BoxHeightStyle.strut,
+              decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.blue)),
+                  labelStyle: TextStyle(color: Colors.white)),
+              controller: textEditingController,
+              style: TextStyle(color: Colors.white),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 40,
+              width: 400,
+              child: Expanded(
+                child: ElevatedButton(
+                    // style: ElevatedButton.styleFrom(minimumSize: Size(350, 40)),
+                    onPressed: () {
+                      setState(() {
+                        inputSecret(textEditingController.text);
+                      });
+                    },
+                    child: Text("비밀공유")),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
