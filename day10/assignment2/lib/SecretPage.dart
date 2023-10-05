@@ -14,33 +14,6 @@ class SecretPage extends StatefulWidget {
 class _SecretPageState extends State<SecretPage> {
   List<Map<String, dynamic>> secretList = [];
 
-  void getSecret() async {
-    var secrets = await SecretCatApi.fetchSecrets();
-
-    // print("========= SECRETLIST = ${secrets.toString()}");
-
-    for (var secret in secrets) {
-      var secretData = secret.secret;
-      Author? author = secret.author;
-
-      if (author == null) {
-        secretList.add({"secret": secretData, "author": "익명"});
-      } else {
-        secretList.add(
-          {
-            "secret": secretData,
-            "author": {
-              "name": author.name,
-              "username": author.username,
-              "avatar": author.avatar
-            }
-          },
-        );
-      }
-    }
-    print("=========== SECRETLIST === $secretList");
-  }
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -48,7 +21,6 @@ class _SecretPageState extends State<SecretPage> {
         future: SecretCatApi.fetchSecrets(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            // getSecret();
             for (var secret in snapshot.data!) {
               var secretData = secret.secret;
               Author? author = secret.author;
