@@ -19,7 +19,7 @@ class _AuthorPageState extends State<AuthorPage> {
         future: SecretCatApi.fetchAuthors(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            print("${snapshot.data}");
+            // print("${snapshot.data}");
             for (var author in snapshot.data) {
               String name = author.name;
               String username = author.username;
@@ -29,7 +29,7 @@ class _AuthorPageState extends State<AuthorPage> {
                 {"name": name, "username": username, "avatar": avatar},
               );
 
-              print("=============== AUTHORS : $authors");
+              // print("=============== AUTHORS : $authors");
             }
           }
           return Padding(

@@ -40,7 +40,7 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.grey.withOpacity(0.3),
         selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white24,
+        unselectedItemColor: Colors.white60,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
         currentIndex: currentPageIdx,
         onTap: (index) {
