@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.done) {
             return Container(
               decoration: BoxDecoration(
-                // color: Colors.white.withOpacity(0.5),
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: AssetImage(
@@ -33,16 +32,6 @@ class MyApp extends StatelessWidget {
           }
           return Center(child: CircularProgressIndicator());
         },
-        // child: Container(
-        //     decoration: BoxDecoration(
-        //       // color: Colors.white.withOpacity(0.5),
-        //       image: DecorationImage(
-        //         fit: BoxFit.cover,
-        //         image: AssetImage(
-        //             'assets/vika-strawberrika-19R4G17VXrE-unsplash.jpg'),
-        //       ),
-        //     ),
-        //     child: MainPage()),
       ),
     );
   }
