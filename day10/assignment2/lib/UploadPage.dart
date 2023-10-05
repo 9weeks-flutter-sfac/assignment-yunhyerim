@@ -67,7 +67,7 @@ class _UploadPageState extends State<UploadPage> {
                         });
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
-                      child: Text("비밀 공유")),
+                      child: Text("비밀을 공유했습니다.")),
                 ),
               )
             ],

@@ -26,7 +26,11 @@ class _AuthorPageState extends State<AuthorPage> {
               String avatar = author.avatar;
 
               authors.add(
-                {"name": name, "username": username, "avatar": avatar},
+                {
+                  "name": name,
+                  "username": username,
+                  "avatar": avatar,
+                },
               );
 
               // print("=============== AUTHORS : $authors");

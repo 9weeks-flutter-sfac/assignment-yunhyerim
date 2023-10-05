@@ -2,7 +2,6 @@ import 'package:assignment2/AuthorPage.dart';
 import 'package:assignment2/SecretPage.dart';
 import 'package:assignment2/UploadPage.dart';
 import 'package:flutter/material.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

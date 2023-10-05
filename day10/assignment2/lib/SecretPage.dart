@@ -26,7 +26,12 @@ class _SecretPageState extends State<SecretPage> {
               Author? author = secret.author;
 
               if (author == null) {
-                secretList.add({"secret": secretData, "author": "익명"});
+                secretList.add(
+                  {
+                    "secret": secretData,
+                    "author": "익명",
+                  },
+                );
               } else {
                 secretList.add(
                   {
