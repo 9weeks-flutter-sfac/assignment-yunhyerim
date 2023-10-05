@@ -21,18 +21,19 @@ class SecretContainer extends StatelessWidget {
                   "assets/karaoke.png",
                 ),
                 backgroundColor: Colors.grey.withOpacity(0.3),
-                radius: 50,
+                radius: 80,
               )
             else
               CircleAvatar(
                 backgroundImage: NetworkImage(secretInfo["author"]["avatar"]),
                 backgroundColor: Colors.grey.withOpacity(0.3),
-                radius: 50,
+                radius: 80,
               ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 secretInfo["secret"],
+                textAlign: TextAlign.center,
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),

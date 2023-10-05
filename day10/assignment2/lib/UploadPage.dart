@@ -24,6 +24,15 @@ class _UploadPageState extends State<UploadPage> {
 
   @override
   Widget build(BuildContext context) {
+    var snackBar = SnackBar(
+      content: Text('비밀을 공유했습니다.'),
+      action: SnackBarAction(
+        label: 'Undo',
+        onPressed: () {},
+      ),
+      duration: Duration(milliseconds: 1000),
+    );
+
     return Center(
       child: FadeInUp(
         child: Padding(
@@ -54,7 +63,9 @@ class _UploadPageState extends State<UploadPage> {
                       onPressed: () {
                         setState(() {
                           inputSecret(textEditingController.text);
+                          textEditingController.clear();
                         });
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       child: Text("비밀 공유")),
                 ),
