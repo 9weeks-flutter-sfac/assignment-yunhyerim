@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   secret_cat_sdk: ^0.0.6
   animate_do: ^3.1.2
+  dio: ^4.0.6
+  pull_to_refresh: ^2.0.0
 
 dev_dependencies:
   flutter_test:

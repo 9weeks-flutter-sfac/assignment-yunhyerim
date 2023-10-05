@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:assignment2/SecretContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:secret_cat_sdk/api/api.dart';
@@ -25,14 +26,16 @@ class _SecretPageState extends State<SecretPage> {
       if (author == null) {
         secretList.add({"secret": secretData, "author": "익명"});
       } else {
-        secretList.add({
-          "secret": secretData,
-          "author": {
-            "name": author.name,
-            "username": author.username,
-            "avatar": author.avatar
-          }
-        });
+        secretList.add(
+          {
+            "secret": secretData,
+            "author": {
+              "name": author.name,
+              "username": author.username,
+              "avatar": author.avatar
+            }
+          },
+        );
       }
     }
     print("=========== SECRETLIST === $secretList");
@@ -74,8 +77,10 @@ class _SecretPageState extends State<SecretPage> {
                 itemCount: secretList.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return SecretContainer(
-                    secretInfo: secretList[index],
+                  return FadeInRight(
+                    child: SecretContainer(
+                      secretInfo: secretList[index],
+                    ),
                   );
                 },
               ),

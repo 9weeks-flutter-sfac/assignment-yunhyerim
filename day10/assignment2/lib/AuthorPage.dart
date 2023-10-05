@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:secret_cat_sdk/api/api.dart';
 
@@ -40,23 +41,25 @@ class _AuthorPageState extends State<AuthorPage> {
                     crossAxisCount: 3, mainAxisSpacing: 14),
                 itemCount: authors.length,
                 itemBuilder: (context, index) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.network(
-                        authors[index]["avatar"]!,
-                        height: 100,
-                        width: 100,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        authors[index]["name"]!,
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    ],
+                  return FadeInDown(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.network(
+                          authors[index]["avatar"]!,
+                          height: 100,
+                          width: 100,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          authors[index]["name"]!,
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   );
                 },
               ),

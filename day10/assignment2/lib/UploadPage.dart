@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:secret_cat_sdk/api/api.dart';
 
@@ -24,40 +25,42 @@ class _UploadPageState extends State<UploadPage> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              selectionHeightStyle: BoxHeightStyle.strut,
-              decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.blue)),
-                  labelStyle: TextStyle(color: Colors.white)),
-              controller: textEditingController,
-              style: TextStyle(color: Colors.white),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              height: 40,
-              width: 400,
-              child: Expanded(
-                child: ElevatedButton(
-                    // style: ElevatedButton.styleFrom(minimumSize: Size(350, 40)),
-                    onPressed: () {
-                      setState(() {
-                        inputSecret(textEditingController.text);
-                      });
-                    },
-                    child: Text("비밀공유")),
+      child: FadeInUp(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                selectionHeightStyle: BoxHeightStyle.strut,
+                decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: Colors.blue)),
+                    labelStyle: TextStyle(color: Colors.white)),
+                controller: textEditingController,
+                style: TextStyle(color: Colors.white),
               ),
-            )
-          ],
+              SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: 40,
+                width: 400,
+                child: Expanded(
+                  child: ElevatedButton(
+                      // style: ElevatedButton.styleFrom(minimumSize: Size(350, 40)),
+                      onPressed: () {
+                        setState(() {
+                          inputSecret(textEditingController.text);
+                        });
+                      },
+                      child: Text("비밀 공유")),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
