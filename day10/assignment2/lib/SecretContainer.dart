@@ -15,20 +15,14 @@ class SecretContainer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            //TODO
-            //if else 말고 다른 대안 없는지
-            if (secretInfo["author"] == "익명")
-              CircleAvatar(
-                backgroundImage: AssetImage("assets/karaoke.png"),
-                backgroundColor: Colors.grey.withOpacity(0.3),
-                radius: 80,
-              )
-            else
-              CircleAvatar(
-                backgroundImage: NetworkImage(secretInfo["author"]["avatar"]),
-                backgroundColor: Colors.grey.withOpacity(0.3),
-                radius: 80,
-              ),
+            CircleAvatar(
+              backgroundImage: secretInfo["author"] == "익명"
+                  ? AssetImage("assets/karaoke.png")
+                  : NetworkImage(secretInfo["author"]["avatar"])
+                      as ImageProvider,
+              backgroundColor: Colors.grey.withOpacity(0.3),
+              radius: 80,
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
