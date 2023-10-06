@@ -15,11 +15,11 @@ class SecretContainer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            //TODO
+            //if else 말고 다른 대안 없는지
             if (secretInfo["author"] == "익명")
               CircleAvatar(
-                backgroundImage: AssetImage(
-                  "assets/karaoke.png",
-                ),
+                backgroundImage: AssetImage("assets/karaoke.png"),
                 backgroundColor: Colors.grey.withOpacity(0.3),
                 radius: 80,
               )
@@ -38,18 +38,13 @@ class SecretContainer extends StatelessWidget {
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
             ),
-            if (secretInfo["author"] == "익명")
-              Text(
-                secretInfo["author"],
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              )
-            else
-              Text(
-                secretInfo["author"]["name"],
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
+            Text(
+              secretInfo["author"] == "익명"
+                  ? secretInfo["author"]
+                  : secretInfo["author"]["name"],
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            )
           ],
         ),
       ),

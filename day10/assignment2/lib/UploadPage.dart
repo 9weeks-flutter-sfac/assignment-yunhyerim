@@ -42,6 +42,7 @@ class _UploadPageState extends State<UploadPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
+                maxLines: 3,
                 selectionHeightStyle: BoxHeightStyle.strut,
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
