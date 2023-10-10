@@ -9,7 +9,7 @@
 
 1. **기존의 키오스크 앱을 활용하여 다음의 결과물을 제작할 수 있도록 합니다.**
     
-    ![kiosk3.gif](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f99cca04-186a-40db-be5e-9c7bc94da688/kiosk3.gif)
+    ![kiosk3.gif](assets/output.gif)
     
 
 - 음식리스트는 다음의 API 주소에서 가져올 수 있습니다.
