@@ -12,3 +12,8 @@ https://sniperfactory.com/sfac/http_json_data
 
 
 ![](assets/SimulatorScreenShot.png)
+
+
+## result
+
+![](assets/Screenshot_1696925703.png)
