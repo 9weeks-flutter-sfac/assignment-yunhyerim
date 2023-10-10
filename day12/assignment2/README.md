@@ -1,16 +1,14 @@
 # assignment2
 
-A new Flutter project.
+# 12일차 과제
 
-## Getting Started
+과제 1. **다음의 URL에 네트워크 요청을 보내고, 얻은 데이터를 Class를 통해 생성할 수 있도록 만드시오.**
 
-This project is a starting point for a Flutter application.
+https://sniperfactory.com/sfac/http_json_data
 
-A few resources to get you started if this is your first Flutter project:
+- 이 때 제작하는 Class 명은 자유입니다.
+- 받아온 네트워크 데이터를 Class에 적용시키고 플러터를 사용하여 다음의 화면을 제작합니다.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+![](assets/SimulatorScreenShot.png)
