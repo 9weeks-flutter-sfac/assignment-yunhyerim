@@ -26,7 +26,12 @@ class _FirstScreenState extends State<FirstScreen> {
         controller: refreshController,
         onRefresh: () {
           setState(() {
-            currentIdx += 1;
+            if (currentIdx < imageUrl.length - 1) {
+              currentIdx += 1;
+            } else {
+              currentIdx = 0;
+            }
+
             refreshController.refreshCompleted();
           });
         },
