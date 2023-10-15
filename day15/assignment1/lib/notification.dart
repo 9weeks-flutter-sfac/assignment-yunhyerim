@@ -18,7 +18,9 @@ class FlutterLocalNotification {
     );
 
     InitializationSettings initializationSettings = InitializationSettings(
-        android: androidInitializationSettings, iOS: iosInitializationSettings);
+      android: androidInitializationSettings,
+      iOS: iosInitializationSettings,
+    );
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }

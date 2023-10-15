@@ -1,13 +1,13 @@
 import 'dart:async';
 
+import 'package:assignment1/controller/app_setting_controller.dart';
 import 'package:assignment1/notification.dart';
-import 'package:assignment1/service/local_notification_service.dart';
 import 'package:get/get.dart';
 
 class CoinController extends GetxController {
   RxInt coinNum = 0.obs;
   final passedSeconds = 0.obs;
-  bool isStartedTimer = false;
+  bool isStartedTimer = true;
   Timer? _timer;
 
   void _startTimer(RxInt passedSeconds) {
@@ -27,7 +27,6 @@ class CoinController extends GetxController {
   @override
   void onInit() {
     print("ONINIT");
-    // TODO: implement onInit
     super.onInit();
     if (isStartedTimer) {
       return _startTimer(passedSeconds);
@@ -36,13 +35,15 @@ class CoinController extends GetxController {
 
   @override
   void onReady() {
-    // TODO: implement onReady
     super.onReady();
     ever(coinNum, (value) {
       if (coinNum.value % 10 == 0) {
         print("ONREADY : EVER");
-        FlutterLocalNotification.showNotification(
-            title: "코인 $coinNum 돌파!", body: "축하합니다!");
+        if (AppSettingController.to.isNotificationOn == true) {
+          // appsettingcontroller의 알림 설정이 켜져있을때만 작동
+          FlutterLocalNotification.showNotification(
+              title: "코인 $coinNum 돌파!", body: "축하합니다!");
+        }
       }
     });
   }

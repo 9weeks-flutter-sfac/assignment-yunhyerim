@@ -1,5 +1,6 @@
 import 'package:assignment1/controller/app_setting_controller.dart';
 import 'package:assignment1/controller/coin_controller.dart';
+import 'package:assignment1/controller/notification_icon_controller.dart';
 import 'package:assignment1/notification.dart';
 import 'package:assignment1/page/main_page.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-    // TODO: implement initState
     // 초기화
     FlutterLocalNotification.init();
     // 3초 후 권한 요청
@@ -29,13 +29,20 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // var appSettingController = Get.put(AppSettingController);
     Get.put(CoinController());
-    // Get.put(LocalNotificationService())
-    Get.put(AppSettingController);
+    Get.put(AppSettingController(
+        isSoundOn: true,
+        isNotificationOn: true,
+        appVersion: "0.0.1",
+        appName: "Coin Counter",
+        appAuthor: "Hyerim",
+        appPackageName: "Assignment1",
+        lastUpdated: DateTime.now()));
+    Get.put(NotificationIconController());
+
+    print("NOW ${DateTime.now()}");
 
     return GetMaterialApp(
       title: 'Flutter Demo',
