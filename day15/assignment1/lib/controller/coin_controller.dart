@@ -37,7 +37,7 @@ class CoinController extends GetxController {
   void onReady() {
     super.onReady();
     ever(coinNum, (value) {
-      if (coinNum.value % 10 == 0) {
+      if (coinNum.value % 10 == 0 && coinNum.value != 0) {
         print("ONREADY : EVER");
         if (AppSettingController.to.isNotificationOn == true) {
           // appsettingcontroller의 알림 설정이 켜져있을때만 작동

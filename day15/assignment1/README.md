@@ -2,7 +2,7 @@
 
 # 15일차(오프라인) 과제
 
-![coinapp.gif](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/73aa279e-bd15-4811-bd33-abc1d344b4ca/coinapp.gif)
+![coinapp.gif](/coinapp.gif)
 
 1. **위의 결과물처럼 메인페이지에서의 코인이 1초마다 +1씩 되도록 만드시오.**
     - 사용된 비트코인은 FontAwesome의 아이콘을 활용한다.
@@ -45,3 +45,9 @@
 ```dart
 Get.to(()=>페이지명());
 ```
+
+<br>
+
+### 과제 구현
+
+![](day15_coincounter.gif)
