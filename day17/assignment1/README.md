@@ -2,13 +2,13 @@
 
 # 17일차 과제
 ## 구현 결과
-### Title: 말하는 호박
-|로그인<br>및<br>회원가입|![](/screenshot/Screenshot_1697696746.png)|![](/screenshot/Screenshot_1697696752.png)||
+### Title : 말하는 호박
+|로그인<br>및<br>회원가입|![](screenshot/Screenshot_1697696746.png)|![](screenshot/Screenshot_1697696752.png)||
 |---|---|---|---|
-|회원가입<br>실패 처리|![](/screenshot/Screenshot_1697697029.png)|![](/screenshot/Screenshot_1697697000.png)|![](/screenshot/Screenshot_1697697013.png)|
+|회원가입<br>실패 처리|![](screenshot/Screenshot_1697697029.png)|![](screenshot/Screenshot_1697697000.png)|![](screenshot/Screenshot_1697697013.png)|
 |가입 및 로그인 성공|![](screenshot/Screenshot_1697697051.png)
 |메인화면[비밀리스트, 회원리스트]|![](screenshot/Screenshot_1697697064.png)|![](screenshot/Screenshot_1697697067.png)||
-|FAB:비밀 공유(글쓰기)|![](/screenshot/Screenshot_1697697120.png)
+|FAB:비밀 공유(글쓰기)|![](screenshot/Screenshot_1697697120.png)
 
 
 
