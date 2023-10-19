@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 class UserListPage extends GetView<UserListController> {
   const UserListPage({super.key});
+  static const String route = '/userlist';
 
   @override
   Widget build(BuildContext context) {

@@ -10,8 +10,6 @@ class SecretController extends GetxController {
 
   ScrollController get scrollController => _scrollController;
 
-  // RxList<Secret> get secretList => _secretList;
-
   getSecretList() async {
     print("======= GETSECRETLIST()");
     String path =

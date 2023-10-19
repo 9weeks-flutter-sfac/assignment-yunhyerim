@@ -46,7 +46,6 @@ class SecretUploadPage extends GetView<SecretUploadController> {
                   width: 400,
                   child: Expanded(
                     child: ElevatedButton(
-                      // style: ElevatedButton.styleFrom(minimumSize: Size(350, 40)),
                       onPressed: () {
                         controller.postSecret(controller.postController.text);
                         controller.postController.clear();

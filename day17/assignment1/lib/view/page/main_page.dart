@@ -1,5 +1,6 @@
 import 'package:assignment1/controller/auth_controller.dart';
 import 'package:assignment1/controller/main_controller.dart';
+import 'package:assignment1/view/page/login_page.dart';
 import 'package:assignment1/view/page/secret_page.dart';
 import 'package:assignment1/view/page/user_list_page.dart';
 import 'package:flutter/material.dart';
@@ -12,18 +13,19 @@ class MainPage extends GetView<MainController> {
 
   @override
   Widget build(BuildContext context) {
-    var authController = Get.put(AuthController());
-
+    var authController = Get.find<AuthController>();
     return Scaffold(
       backgroundColor: Colors.amberAccent.shade400,
       appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Row(
             children: [
-              Text(
-                "말하는 호박 (${authController.user!.username})",
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
+              Obx(
+                () => Text(
+                  "말하는 호박 (${authController.user!.username})",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],

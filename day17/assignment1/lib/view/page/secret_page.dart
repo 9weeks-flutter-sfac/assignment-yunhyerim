@@ -1,59 +1,56 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:assignment1/controller/auth_controller.dart';
 import 'package:assignment1/controller/secret_controller.dart';
 import 'package:assignment1/controller/secret_upload_controller.dart';
+import 'package:assignment1/view/page/login_page.dart';
 import 'package:assignment1/view/page/secret_upload_page.dart';
+import 'package:assignment1/view/page/widget/secret_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../model/secret.dart';
 
 class SecretPage extends GetView<SecretController> {
-  SecretPage({super.key});
+  const SecretPage({super.key});
   static const String route = "/secret";
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+  // final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
 
   @override
   Widget build(BuildContext context) {
-    Get.find<SecretUploadController>();
+    var authController = Get.find<AuthController>();
     return Scaffold(
-      body: Center(
-        child: FutureBuilder(
-          future: controller.getSecretList(),
-          builder: (context, snapshot) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Obx(
-                () => ListView.builder(
-                  controller: controller.scrollController,
-                  shrinkWrap: true,
-                  itemCount: controller.secretList.length,
-                  itemBuilder: (context, index) {
-                    Secret secret = controller.secretList[index];
-                    return FadeInUp(
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage:
-                              const AssetImage("assets/karaoke.png"),
-                          backgroundColor: Colors.grey.withOpacity(0.3),
-                          radius: 30,
-                        ),
-                        title: secret.secret == null
-                            ? const Text("No Secret")
-                            : Text(secret.secret != ""
-                                ? secret.secret!
-                                : "비밀이 없습니다."),
-                        subtitle: Text(secret.authorName != ""
-                            ? secret.authorName!
-                            : "익명의 사용자"),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            );
-          },
-        ),
-      ),
+      body: Obx(() {
+        if (authController.token != null) {
+          return Center(
+            child: FutureBuilder(
+              future: controller.getSecretList(),
+              builder: (context, snapshot) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Obx(
+                    () => ListView.builder(
+                      controller: controller.scrollController,
+                      shrinkWrap: true,
+                      itemCount: controller.secretList.length,
+                      itemBuilder: (context, index) {
+                        Secret secret = controller.secretList[index];
+                        return FadeInUp(
+                          child: SecretWidget(secret: secret),
+                        );
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
+        } else {
+          Future.delayed(Duration(milliseconds: 1500), () {
+            Get.toNamed(LoginPage.route);
+          });
+        }
+        return const CircularProgressIndicator();
+      }),
       floatingActionButton: ZoomIn(
         child: FloatingActionButton(
           onPressed: () {

@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:assignment1/controller/login_controller.dart';
 import 'package:assignment1/view/page/sign_up_page.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +18,11 @@ class LoginPage extends GetView<LoginController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                "assets/pumpkin.png",
-                height: 230,
+              ElasticIn(
+                child: Image.asset(
+                  "assets/pumpkin.png",
+                  height: 230,
+                ),
               ),
               const SizedBox(
                 height: 16,
@@ -41,7 +44,7 @@ class LoginPage extends GetView<LoginController> {
               ),
               ElevatedButton(
                 onPressed: () => Get.toNamed(SignUpPage.route),
-                child: const Text("Go to Sign Up!"),
+                child: const Text("Sign Up"),
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStatePropertyAll(Colors.amberAccent.shade400),

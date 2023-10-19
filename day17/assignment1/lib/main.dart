@@ -8,6 +8,7 @@ import 'package:assignment1/view/page/login_page.dart';
 import 'package:assignment1/view/page/main_page.dart';
 import 'package:assignment1/view/page/secret_upload_page.dart';
 import 'package:assignment1/view/page/sign_up_page.dart';
+import 'package:assignment1/view/page/user_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,12 +25,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    var authController = Get.put(AuthController());
-
     return GetMaterialApp(
       title: 'Flutter Demo',
       initialBinding: BindingsBuilder(() {
-        // Get.put(AuthController());
+        Get.put(AuthController());
         Get.lazyPut(() => MainController(), fenix: true);
         Get.lazyPut(() => LoginController(), fenix: true);
         Get.lazyPut(() => SignUpController(), fenix: true);
@@ -38,12 +37,12 @@ class MyApp extends StatelessWidget {
         Get.lazyPut(() => SecretUploadController(), fenix: true);
       }),
       getPages: [
-        // GetPage(name: MainPage2.route, page: () => MainPage2()),
         GetPage(name: MainPage.route, page: () => MainPage()),
         GetPage(name: LoginPage.route, page: () => LoginPage()),
         GetPage(name: SignUpPage.route, page: () => SignUpPage()),
         GetPage(name: SecretUploadPage.route, page: () => SecretUploadPage()),
         GetPage(name: SecretPage.route, page: () => SecretPage()),
+        GetPage(name: UserListPage.route, page: () => UserListPage()),
       ],
       home: LoginPage(),
     );

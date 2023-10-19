@@ -1,8 +1,7 @@
-// ignore_for_file: unnecessary_string_interpolations, prefer_const_constructors
-
-import 'dart:math';
-
+import 'package:assignment1/controller/main_controller.dart';
+import 'package:assignment1/controller/secret_controller.dart';
 import 'package:assignment1/controller/sign_up_controller.dart';
+import 'package:assignment1/controller/user_list_controller.dart';
 import 'package:assignment1/view/page/login_page.dart';
 import 'package:assignment1/view/page/main_page.dart';
 import 'package:dio/dio.dart';
@@ -11,21 +10,16 @@ import 'package:get/get.dart';
 import '../model/user.dart';
 
 class AuthController extends GetxController {
-  final Rxn<User> _user = Rxn();
+  Rxn<User>? _user;
   RxString? _token = "".obs;
   Dio dio = Dio();
 
-  User? get user => _user.value;
+  User? get user => _user?.value;
   String? get token => _token?.value;
-
-  //test1@example.com
-  //123456789
-  //text12345
-  //I/flutter ( 6607): ==== STATUS : OK
-  // I/flutter ( 6607): {"avatar":"","collectionId":"_pb_users_auth_","collectionName":"users","created":"2023-10-17 06:05:45.366Z","emailVisibility":false,"id":"svxge1xfdwvox5i","name":"","updated":"2023-10-17 06:05:45.366Z","username":"text1","verified":false}
 
   // 로그인
   login(String id, String pw) async {
+    print("=== authcontroller.login");
     var url =
         "http://52.79.115.43:8090/api/collections/users/auth-with-password";
     try {
@@ -36,12 +30,17 @@ class AuthController extends GetxController {
       // print("========= ${res.data["token"]}");
       // print("========= ${res.data["record"]}");
 
-      _token!(res.data["token"]);
+      _token = RxString(res.data["token"]);
+
       var user = User.fromMap(res.data["record"]);
-      _user(user);
+      _user = Rxn(user);
 
       print("===== set_token : $_token");
       print("===== set_user : $_user");
+
+      Get.find<UserListController>().scrollController.onDetach;
+      Get.find<SecretController>().scrollController.onAttach;
+      Get.find<MainController>().currentIndex.value = 0;
 
       Get.toNamed(MainPage.route);
       Get.showSnackbar(GetSnackBar(
@@ -51,6 +50,10 @@ class AuthController extends GetxController {
       ));
     } catch (e) {
       print(e);
+      Get.showSnackbar(GetSnackBar(
+        title: "로그인 실패",
+        message: "다시 시도해주세요",
+      ));
     }
   }
 
@@ -116,7 +119,7 @@ class AuthController extends GetxController {
       Get.showSnackbar(GetSnackBar(
         title: "가입 실패",
         message: "다시 시도해주세요",
-        duration: Duration(milliseconds: 2),
+        duration: Duration(seconds: 2),
       ));
     }
   }
@@ -133,13 +136,23 @@ class AuthController extends GetxController {
 
   //로그아웃
   void logout() {
+    print("======= LOGOUT");
+
     _token = null;
-    _user(null);
-    Get.toNamed(LoginPage.route);
-    Get.showSnackbar(GetSnackBar(
+    _user = null;
+
+    print("TOKEN : $_token");
+    print("USER : ${_user?.value}");
+
+    // Get.toNamed(LoginPage.route, preventDuplicates: true);
+    Get.offAll(() => LoginPage());
+    Get.showSnackbar(const GetSnackBar(
       title: "로그아웃 완료",
       message: "다시 로그인 해 주세요",
       duration: Duration(seconds: 2),
     ));
+    // Get.find<MainController>().dispose();
+    Get.find<UserListController>().scrollController.onDetach;
+    Get.find<SecretController>().scrollController.onDetach;
   }
 }

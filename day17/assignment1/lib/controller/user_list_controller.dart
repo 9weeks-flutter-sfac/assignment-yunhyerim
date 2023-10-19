@@ -19,16 +19,10 @@ class UserListController extends GetxController {
         "http://52.79.115.43:8090/api/collections/users/records?sort=-created";
     var response = await dio.get(url);
 
-    print("======= ${response.data["items"].runtimeType}");
-
     var mapsList = List<Map<String, dynamic>>.from(response.data["items"]);
-    // print("======= MAPSLIST = ${mapsList}");
     var userList = mapsList.map((e) => User.fromMap(e)).toList();
-    // print("========= USERLIST $userList");
 
     users(userList);
-
-    // print("===== USERS = $users");
   }
 
   logout() {
