@@ -44,6 +44,11 @@ class AuthController extends GetxController {
       print("===== set_user : $_user");
 
       Get.toNamed(MainPage.route);
+      Get.showSnackbar(GetSnackBar(
+        title: "로그인 성공",
+        message: "$id으로 로그인",
+        duration: Duration(milliseconds: 1500),
+      ));
     } catch (e) {
       print(e);
     }
@@ -126,9 +131,15 @@ class AuthController extends GetxController {
     return RegExp(r'[9,]').hasMatch(pw);
   }
 
+  //로그아웃
   void logout() {
     _token = null;
     _user(null);
     Get.toNamed(LoginPage.route);
+    Get.showSnackbar(GetSnackBar(
+      title: "로그아웃 완료",
+      message: "다시 로그인 해 주세요",
+      duration: Duration(seconds: 2),
+    ));
   }
 }

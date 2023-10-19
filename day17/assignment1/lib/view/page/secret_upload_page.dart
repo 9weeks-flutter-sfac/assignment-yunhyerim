@@ -50,7 +50,15 @@ class SecretUploadPage extends GetView<SecretUploadController> {
                       onPressed: () {
                         controller.postSecret(controller.postController.text);
                         controller.postController.clear();
+
                         Get.back();
+                        Get.showSnackbar(const GetSnackBar(
+                          title: "비밀 공유",
+                          message: "성공",
+                          duration: Duration(
+                            milliseconds: 1500,
+                          ),
+                        ));
                       },
                       child: Text("비밀 공유하기"),
                       style: ButtonStyle(
