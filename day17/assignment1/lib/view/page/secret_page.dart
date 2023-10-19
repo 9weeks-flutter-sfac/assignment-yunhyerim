@@ -57,7 +57,7 @@ class SecretPage extends GetView<SecretController> {
       floatingActionButton: ZoomIn(
         child: FloatingActionButton(
           onPressed: () {
-            Get.to(SecretUploadPage.route)
+            Get.toNamed(SecretUploadPage.route)
                 ?.then((value) => controller.scrollController.jumpTo(0.0));
           },
           child: Icon(Icons.add),

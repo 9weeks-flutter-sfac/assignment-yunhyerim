@@ -2,6 +2,7 @@
 
 import 'dart:math';
 
+import 'package:assignment1/controller/sign_up_controller.dart';
 import 'package:assignment1/view/page/login_page.dart';
 import 'package:assignment1/view/page/main_page.dart';
 import 'package:dio/dio.dart';
@@ -91,13 +92,19 @@ class AuthController extends GetxController {
       });
       print("==== STATUS : ${request.statusCode}");
       print("==== STATUS : ${request.statusMessage}");
-      print(request);
+
       Get.toNamed(LoginPage.route);
       Get.showSnackbar(GetSnackBar(
         title: "가입 성공",
         message: "$email",
         duration: Duration(seconds: 4),
       ));
+
+      var signUpController = Get.find<SignUpController>();
+      signUpController.emailController.clear();
+      signUpController.pwController.clear();
+      signUpController.pwCheckController.clear();
+      signUpController.usernameController.clear();
     } on DioError catch (e) {
       print("=== ERROR : ${e.message}");
       print(e);

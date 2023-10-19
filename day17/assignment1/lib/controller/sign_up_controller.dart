@@ -11,9 +11,5 @@ class SignUpController extends GetxController {
   signUp() {
     Get.find<AuthController>().signUp(emailController.text, pwController.text,
         pwCheckController.text, usernameController.text);
-    emailController.clear();
-    pwController.clear();
-    pwCheckController.clear();
-    usernameController.clear();
   }
 }
