@@ -7,7 +7,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -30,8 +30,6 @@ class _MyAppState extends State<MyApp> {
 
   List<String> msgList = [];
   List<String> urlList = [];
-
-  bool connectionStatus = false;
 
   void getData() async {
     setState(() {
@@ -102,6 +100,18 @@ class _MyAppState extends State<MyApp> {
     super.initState();
 
     getData();
+    isOnLoading();
+  }
+
+  void isOnLoading() async {
+    setState(() {
+      isCheckingNetwork = false;
+      isConnectedNetwork = true;
+      isLoading = true;
+    });
+    await Future.delayed(Duration(seconds: 2));
+    isLoading = false;
+    setState(() {});
   }
 
   @override
