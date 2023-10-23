@@ -34,8 +34,13 @@ class _MyAppState extends State<MyApp> {
         } else {
           print('회원가입이나 로그인 필요');
         }
+
+        if (event?.emailVerified == true) {
+          print("이메일 인증된 사용자");
+        }
       },
     );
+
     super.initState();
   }
 
